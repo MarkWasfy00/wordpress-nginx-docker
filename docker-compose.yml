@@ -58,17 +58,17 @@ services:
     networks:
       - app-network
 
-  certbot:
-    build: 
-      context: ./data/certbot
-    container_name: certbot
-    volumes:
-      - ./data/certbot/certs:/etc/letsencrypt
-      - ./data/certbot:/letsencrypt
-    depends_on:
-      - nginx
-    networks:
-      - app-network
+  # certbot:
+  #   build: 
+  #     context: ./data/certbot
+  #   container_name: certbot
+  #   volumes:
+  #     - ./data/certbot/certs:/etc/letsencrypt
+  #     - ./data/certbot:/letsencrypt
+  #   depends_on:
+  #     - nginx
+  #   networks:
+  #     - app-network
 
 networks:
   app-network:
