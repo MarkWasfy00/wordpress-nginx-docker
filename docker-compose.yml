@@ -58,21 +58,6 @@ services:
     networks:
       - app-network
 
-  certbot:
-    container_name: certbot
-    image: certbot/certbot:latest
-    depends_on:
-      - nginx
-    command: >-
-              certonly --reinstall --webroot --webroot-path=/var/www/certbot
-              --email markwasfy00@gmail.com --agree-tos --no-eff-email
-              -d thefuturefuse.com
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    networks:
-      - app-network
-
 networks:
   app-network:
     driver: bridge 
