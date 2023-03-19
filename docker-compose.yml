@@ -9,8 +9,8 @@ services:
     volumes:
       - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx/.htpasswd:/etc/nginx/.htpasswd
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - ./data/certbot/certs:/etc/letsencrypt
+      - ./data/certbot:/letsencrypt
     restart: always
     depends_on:
       - wordpress
@@ -55,6 +55,18 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: mysecretpassword
+    networks:
+      - app-network
+
+  certbot:
+    build: 
+      context: ./data/certbot
+    container_name: certbot
+    volumes:
+      - ./data/certbot/certs:/etc/letsencrypt
+      - ./data/certbot:/letsencrypt
+    depends_on:
+      - nginx
     networks:
       - app-network
 
