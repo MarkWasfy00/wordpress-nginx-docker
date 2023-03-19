@@ -2,15 +2,15 @@ version: "3"
 services:
   nginx:
     container_name: nginx-wordpress
-    build: 
-      context: ./nginx
+    image: nginx:latest
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./data/nginx.conf:/etc/nginx/nginx.conf
-      - ./data/.htpasswd:/etc/nginx/.htpasswd
-      - ./etc/letsencrypt:/etc/letsencrypt:ro
+      - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/nginx/.htpasswd:/etc/nginx/.htpasswd
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     restart: always
     depends_on:
       - wordpress
@@ -58,20 +58,20 @@ services:
     networks:
       - app-network
 
-  # certbot:
-  #   container_name: certbot
-  #   image: certbot/certbot:latest
-  #   depends_on:
-  #     - nginx
-  #   command: >-
-  #             certonly --reinstall --webroot --webroot-path=/var/www/certbot
-  #             --email ${EMAIL} --agree-tos --no-eff-email
-  #             -d thefuturefuse.com
-  #   volumes:
-  #     - ./etc/letsencrypt:/etc/letsencrypt
-  #     - ./certbot/data:/var/www/certbot
-  #   networks:
-  #     - app-network
+  certbot:
+    container_name: certbot
+    image: certbot/certbot:latest
+    depends_on:
+      - nginx
+    command: >-
+              certonly --reinstall --webroot --webroot-path=/var/www/certbot
+              --email markwasfy00@gmail.com --agree-tos --no-eff-email
+              -d thefuturefuse.com
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    networks:
+      - app-network
 
 networks:
   app-network:
