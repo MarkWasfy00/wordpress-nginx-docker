@@ -7,14 +7,11 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./data/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./data/nginx.conf:/etc/nginx/nginx.conf
       - ./data/.htpasswd:/etc/nginx/.htpasswd
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
     restart: always
     depends_on:
       - wordpress
-      - certbot    # Add this line
     networks:
       - app-network
 
@@ -56,14 +53,6 @@ services:
       MYSQL_DATABASE: wordpress
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: mysecretpassword
-    networks:
-      - app-network
-
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
     networks:
       - app-network
 
