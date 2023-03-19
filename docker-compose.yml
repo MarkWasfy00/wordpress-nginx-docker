@@ -9,8 +9,8 @@ services:
     volumes:
       - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx/.htpasswd:/etc/nginx/.htpasswd
-      - ./data/certbot/certs:/etc/letsencrypt
-      - ./data/certbot:/letsencrypt
+      - ./data/letsencrypt/certbot/certs:/etc/letsencrypt
+      - ./data/letsencrypt/certbot:/letsencrypt
     restart: always
     depends_on:
       - wordpress
