@@ -1,7 +1,7 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 RUN apt update -y \
-    && apt install nginx curl vim -y \
+    && apt install nginx -y \
     && apt-get install software-properties-common -y \
     && add-apt-repository ppa:certbot/certbot -y \
     && apt-get update -y \
