@@ -1,0 +1,3 @@
+certbot renew
+certbot --nginx
+python3-certbot-nginx

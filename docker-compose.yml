@@ -9,8 +9,6 @@ services:
     volumes:
       - ./data/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./data/nginx/.htpasswd:/etc/nginx/.htpasswd
-      # - ./data/letsencrypt/certbot/certs:/etc/letsencrypt
-      # - ./data/letsencrypt/certbot:/letsencrypt
     restart: always
     depends_on:
       - wordpress
@@ -58,17 +56,6 @@ services:
     networks:
       - app-network
 
-  # certbot:
-  #   build: 
-  #     context: ./data/certbot
-  #   container_name: certbot
-  #   volumes:
-  #     - ./data/certbot/certs:/etc/letsencrypt
-  #     - ./data/certbot:/letsencrypt
-  #   depends_on:
-  #     - nginx
-  #   networks:
-  #     - app-network
 
 networks:
   app-network:
